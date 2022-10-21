@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bookshelf Apps</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="Bookshelf.png" />
+</head>
+<link href="bukanbootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="preloader" class="preloader">
+    <center> <img style="margin-top:15%;margin-bottom:15%;" fill="none" src="Bookshelf.png" alt="logo preloader" />
+    </center>
+  </div>
+  <div class="page-wrapper">
+    <div class="page-titles">
+      <div class="row">
+        <div class="col-lg-8 align-self-center" style="padding-left: 15px; padding-right: 15px;">
+          <nav>
+            <ol class="breadcrumb mb-0 d-flex align-items-center">
+              <li class="breadcrumb-item" style="margin-right: 10px;"> <a href="index.html" class="link"><img width="27"
+                    height="28" style="margin-top:25%;margin-bottom:25%;" fill="none" src="Bookshelf.png"
+                    alt="logo" /></a> </li>
+              <li class="breadcrumb-item active"> Main </li>
+            </ol>
+          </nav>
+          <h1 class="mb-0 fw-bold">Bookshelf Apps</h1>
+        </div>
+        <div class="d-md-flex col-md-4 justify-content-end" style="padding-left: 15px;padding-right: 15px;">
+          <div> <button type="button" href="javascript:void(0)" id="btn-add-book" class="btn text-info"> Tambah Buku
+            </button> </div>
+          <div class="py-3 d-flex align-items-center tooltip">
+            <div class=" d-flex icon-hover align-items-center ">
+              <div class="icon" style="margin-bottom: 5px;margin-left:12px"> <span class="text-info display-6 "><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-database">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg></span> </div>
+              <div class="ms-2" style="padding-top: 8px;margin-right: 12px;margin-left: 2px;">
+                <h2 id="total">0</h2>
+              </div> <span id="tooltiptext" class="tooltiptextstyle">Total Buku</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="card card-body" style="padding-top: 15px;">
+        <center>
+          <h3 style="margin-bottom: 15px;">RAK Buku Selesai Dibaca</h3>
+        </center>
+        <div class="row">
+          <div class="col-md-4 col-xl-2"> <input type="text" class="form-control" id="input-search-c"
+              placeholder="Cari Buku..." /> </div>
+          <div class="col-md-8 justify-content-end d-flex " style="padding-right: 12px;"> <a id="btn-delete-all-c"
+              class="btn btn-light-success d-flex align-items-center" type="button" onclick="moveToUncompleted()"> <svg
+                xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+              </svg>
+              <h4 id="title-delete-all-c" class="text-center" style="margin-bottom: 0px;">Move Selected</h4>
+            </a> <a id="btn-delete-all-c" class="btn btn-light-danger d-flex align-items-center" type="button"
+              onclick="deleteselectedC()"> <svg style="margin-right:5px;" xmlns="http://www.w3.org/2000/svg" width="24"
+                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 feather-sm">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              <h4 id="title-delete-all-c" class="text-center" style="margin-bottom: 0px;">Delete Selected</h4>
+            </a> </div>
+        </div>
+      </div> <!-- Modal -->
+      <div class="modal fade" id="BookModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div id="modalcontent" class="modal-content">
+            <form id="add-book">
+              <div class="modal-header d-flex align-items-center" id="modal-header">
+                <h5 class="modal-title" id="title">Tambah Buku</h5> <button type="button" class="btn-close"></button>
+              </div>
+              <div class="modal-body" id="form-dialog">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3"> <input type="text" id="c-title" class="form-control" placeholder="Judul" /> <span
+                        class="validation-text text-danger"></span> </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3 "> <input type="text" id="c-author" class="form-control" placeholder="Penulis" />
+                      <span class="validation-text text-danger"></span> </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3 "> <input type="number" min="1900" max="2099" step="1" value=2016
+                        class="form-control" id="c-year" placeholder="year" /> <span
+                        class="validation-text text-danger"></span> </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3"> <input type="text" id="c-penerbit" placeholder="penerbit" class="form-control" />
+                      <span class="validation-text text-danger"></span> </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3"> <input type="checkbox" class="form-check-input" id="inputBookIsComplete"
+                        value="false"> <label for="inputBookIsComplete">Saya Telah Selesai Membaca</label> </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body" id="confirm-dialog">
+                <h4>Apakah Anda Yakin?</h4> <small> Aksi Ini Tidak Bisa Dikembalikan</small>
+              </div>
+              <div class="modal-footer"> <button class="btn btn-success px-4" id="btn-1" type="submit"> Add </button>
+                <button id="btn-2" type="button" class="btn btn-danger px-4"> Discard </button> </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card card-body">
+        <div class="table-responsive">
+          <table class="table search-table-c v-middle mb-0 text-nowrap">
+            <thead class="header-item-c">
+              <th>
+                <div class="align-self-center text-center"> <input type="checkbox" class="form-check-input secondary"
+                    id="check-all-c"> </div>
+              </th>
+              <th>Judul & Penerbit</th>
+              <th>Penulis</th>
+              <th>Tahun</th>
+              <th>Action</th>
+            </thead>
+            <tbody id="completeBookshelfList">
+              <!-- row -->
+              <tr class="completebooks">
+                <td>
+                  <div class="align-self-center text-center"> <input type="checkbox"
+                      class="form-check-input secondary selected-id-c"> </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center"> <span
+                      class="round flex-shrink-0 rounded-circle text-white d-inline-block text-center bg-book"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-book feather-sm">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                      </svg></span>
+                    <div class="ms-3">
+                      <h5 class="mb-0"> Semua Bisa Menjadi Programmer Laravel Basic </h5> <small class="text-muted">elex
+                        media </small>
+                    </div>
+                  </div>
+                </td>
+                <td> <span class=" text-muted">yuniar supardi | Sulaeman</span> </td>
+                <td> <span class="text-muted">2016</span> </td>
+                <td>
+                  <div class="action-btn"> <a href="javascript:void(0)" class="text-success switch"> <svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                          d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.1473.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+                      </svg> </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-trash-2 feather-sm">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg> </div>
+                </td>
+              </tr> <!-- /.row -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card card-body" style="padding-top: 15px;">
+        <center>
+          <h3 style="margin-bottom: 15px;">RAK Buku Belum Selesai Dibaca</h3>
+        </center>
+        <div class="row">
+          <div class="col-md-4 "> <input type="text" class="form-control product-search" id="input-search-u"
+              placeholder="Cari buku..." /> </div>
+          <div class="col-md-8 justify-content-end d-flex " style="padding-right: 12px;"> <a id="btn-delete-all-c"
+              class="btn btn-light-success d-flex align-items-center" type="button" onclick="moveToCompleted()"> <svg
+                xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;" width="16" height="16" fill="currentColor"
+                class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+              </svg>
+              <h4 id="title-delete-all-c" class="text-center" style="margin-bottom: 0px;">Move Selected</h4>
+            </a> <a id="btn-delete-all-u" class="btn btn-light-danger d-flex align-items-center"
+              onclick="deleteselectedU()"> <svg style="margin-right:5px;" xmlns="http://www.w3.org/2000/svg" width="24"
+                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 feather-sm">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+              <h4 id="title-delete-all-u" class="text-center" style="margin-bottom: 0px;">Delete Selected</h4>
+            </a> </div>
+        </div>
+      </div>
+      <div class="card card-body">
+        <div class="table-responsive">
+          <table class="table search-table-u v-middle mb-0 text-nowrap">
+            <thead class="header-item-u" style="text-align: start;">
+              <th>
+                <div class="align-self-center text-center"> <input type="checkbox" class="form-check-input secondary"
+                    id="check-all-u"> </div>
+              </th>
+              <th>Judul & Penerbit</th>
+              <th>Penulis</th>
+              <th>Tahun</th>
+              <th>Action</th>
+            </thead>
+            <tbody id="incompleteBookshelfList">
+              <!-- row -->
+              <tr class="incompletebooks">
+                <td>
+                  <div class="align-self-center text-center"> <input type="checkbox"
+                      class="form-check-input secondary selected-id-u"> </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center"> <span
+                      class="round flex-shrink-0 rounded-circle text-white d-inline-block text-center bg-book"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-book feather-sm">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                      </svg></span>
+                    <div class="ms-3">
+                      <h5 class="mb-0 "> title book </h5> <small class="text-muted">penerbit</small>
+                    </div>
+                  </div>
+                </td>
+                <td> <span class="text-muted">penulis</span> </td>
+                <td> <span class="text-muted">tahun</span> </td>
+                <td>
+                  <div class="action-btn"> <a href="#" class="text-success switch"> <svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                          d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+                      </svg> </a> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-trash-2 feather-sm">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg> </div>
+                </td>
+              </tr> <!-- /.row -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer text-center"> © <span id="this-year"></span> All Rights Reserved </footer>
+  </div>';
+
+  <script src="main.js"></script>
+</body>
+
+</html>
